@@ -1,12 +1,13 @@
 import { useContext, useMemo, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 import { getTopMatches } from '../utils/matchmaking';
+import { useRerouteAgent } from './useRerouteAgent';
 
 /**
- * Custom hook to handle Dashboard-specific data processing.
- * Decouples the Dashboard view from the underlying data management.
+ * useDashboard — Aggregated business logic for the Dashboard view.
+ * Bridges global context with view-specific state and agentic hooks.
  * 
- * @returns {Object} Dashboard data and state handlers
+ * @returns {Object} Structured data for the Dashboard UI
  */
 export const useDashboard = () => {
   const { 
@@ -15,11 +16,11 @@ export const useDashboard = () => {
     userAgenda, 
     recommendedAgenda, 
     networkRoster, 
-    eventStats, 
-    triggerFullRoomReroute 
+    eventStats 
   } = useContext(AppContext);
 
   const [isScannerOpen, setIsScannerOpen] = useState(false);
+  const { isRerouting, rerouteInfo, triggerFullRoomReroute } = useRerouteAgent();
 
   // Derive the current runtime mode for UI indicators
   const runtimeMode = useMemo(() => {
@@ -59,6 +60,8 @@ export const useDashboard = () => {
     setIsScannerOpen,
     triggerFullRoomReroute,
     userAgenda,
+    isRerouting,
+    rerouteInfo,
     userLocation: 'Innovation Hub',
   };
 };

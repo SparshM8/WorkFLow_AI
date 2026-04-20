@@ -114,6 +114,12 @@ export const sanitizeOutput = (text) => {
 
 /**
  * Core AI generation wrapper with exponential backoff and resilient fallback.
+ * 
+ * @param {string} prompt - Structured instructions for Gemini
+ * @param {import('zod').ZodSchema} schema - Zod object for response validation
+ * @param {any} fallback - Deterministic data to return on failure
+ * @param {number} [retries=2] - Number of retry attempts for transient errors
+ * @returns {Promise<any>} Validated and typed AI response
  */
 async function safeGenerate(prompt, schema, fallback, retries = 2) {
   if (IS_MOCK_MODE) return fallback;
@@ -121,7 +127,8 @@ async function safeGenerate(prompt, schema, fallback, retries = 2) {
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const result = await model.generateContent(prompt);
-      const text = result.response.text();
+      const response = await result.response;
+      const text = response.text();
       const cleaned = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
       const json = JSON.parse(cleaned);
       return schema.parse(json);

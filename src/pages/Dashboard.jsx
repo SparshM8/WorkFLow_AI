@@ -10,7 +10,7 @@ import SmartScanner from '../components/SmartScanner';
 import GoogleWalletPass from '../components/GoogleWalletPass';
 import VenueMap from '../components/VenueMap';
 import AIBriefing from '../components/AIBriefing';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion as Motion } from 'framer-motion';
 import './Dashboard.css';
 
 /**
@@ -131,6 +131,39 @@ const Dashboard = () => {
           </button>
         </div>
       </div>
+
+      {/* ── Agentic Advisory (AI Proactive Reroute) ── */}
+      <AnimatePresence>
+        {rerouteInfo && (
+          <Motion.div 
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="reroute-advisory-banner card border-warning mb-6"
+          >
+            <div className="flex items-center gap-4 p-4">
+              <div className="advisory-icon bg-warning/10 p-2 rounded-full">
+                <Zap size={24} className="text-warning" />
+              </div>
+              <div className="flex-1">
+                <h4 className="font-bold text-warning">AI Reroute Advisory: Room at Capacity</h4>
+                <p className="text-sm text-secondary">
+                  <strong>{rerouteInfo.original.title}</strong> is currently full. 
+                  MeetFlow AI recommends switching to <strong>{rerouteInfo.suggested.title}</strong>.
+                </p>
+                <div className="ai-justification mt-2 p-2 bg-white/5 rounded border-l-2 border-warning text-xs italic">
+                  <Sparkles size={10} className="inline mr-1" />
+                  "{rerouteInfo.reason}" — {rerouteInfo.matchStrength}% alignment.
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <button className="btn btn-xs btn-primary">Switch Session</button>
+                <button className="btn btn-xs btn-outline" onClick={() => triggerFullRoomReroute(null)}>Dismiss</button>
+              </div>
+            </div>
+          </Motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {isScannerOpen && (
