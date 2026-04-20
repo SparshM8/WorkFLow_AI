@@ -1,5 +1,6 @@
 import React from 'react';
 import { Wallet, Check, Download, ShieldCheck, QrCode, CreditCard } from 'lucide-react';
+import { motion } from 'framer-motion';
 import './GoogleWalletPass.css';
 
 const GoogleWalletPass = ({ user }) => {
