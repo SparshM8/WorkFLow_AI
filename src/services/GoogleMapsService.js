@@ -23,23 +23,26 @@ class GoogleMapsService {
    * 2. Calculate Euclidean distance.
    * 3. Apply a scale factor (1 unit = 0.5m).
    * 4. Divide by average walking speed (80m/min).
-   * 5. Add a 1-minute buffer for hall navigation and crowd density.
+   * 5. Apply a crowdDensity factor (multiplier for friction).
+   * 6. Add a 1-minute buffer for hall navigation.
    * 
    * @param {string} fromRoom - Current physical location
    * @param {string} toRoom - Destination room name
+   * @param {number} [crowdDensity=1.0] - Friction factor (e.g. 1.5 for high crowd)
    * @returns {number} Estimated minutes (rounded)
    */
-  calculateWalkingTime(fromRoom, toRoom) {
+  calculateWalkingTime(fromRoom, toRoom, crowdDensity = 1.0) {
     const from = VENUE_CONFIG.ROOMS[fromRoom];
     const to = VENUE_CONFIG.ROOMS[toRoom];
 
-    if (!from || !to) return 5; // Default fallback for unknown locations
+    if (!from || !to) return 5; 
 
     const dist = Math.sqrt(Math.pow(to.x - from.x, 2) + Math.pow(to.y - from.y, 2));
     const meters = dist * 0.5;
     
-    // Average walking speed ~80m/min
-    const minutes = meters / 80;
+    // Average walking speed ~80m/min, adjusted for crowd density
+    const speed = 80 / Math.max(1.0, crowdDensity);
+    const minutes = meters / speed;
     
     return Math.max(1, Math.round(minutes + 1)); 
   }

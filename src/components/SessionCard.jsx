@@ -4,6 +4,7 @@ import { AppContext } from '../context/AppContext';
 import { getSessionCountdown } from '../utils/sessionUtils';
 import { mapsService } from '../services/GoogleMapsService';
 import { calendarService } from '../services/GoogleCalendarService';
+import { useDashboard } from '../hooks/useDashboard';
 import Skeleton from './Skeleton';
 import './SessionCard.css';
 
@@ -29,6 +30,7 @@ const SessionCard = ({ session, isAlternate }) => {
     );
   }
 
+  const { userLocation = 'Innovation Hub' } = useDashboard();
   const isSaved = userAgenda.some(s => s.id === session.id);
   const countdown = getSessionCountdown(session.time);
 
@@ -94,8 +96,13 @@ const SessionCard = ({ session, isAlternate }) => {
         <div className="info-row">
           <MapPin size={16} />
           <span>{session.location}</span>
-          <span className="walk-time-badge">
-            ~{mapsService.calculateWalkingTime('Innovation Hub', session.location)}m walk
+          <span className={`walk-time-badge ${session.status === 'Full' ? 'crowd-delay' : ''}`}>
+            ~{mapsService.calculateWalkingTime(
+              userLocation, 
+              session.location, 
+              session.status === 'Full' ? 1.8 : session.status === 'Filling Fast' ? 1.3 : 1.0
+            )}m walk
+            {session.status === 'Full' && <span className="text-[9px] ml-1 opacity-70">(Crowd delay)</span>}
           </span>
         </div>
       </div>

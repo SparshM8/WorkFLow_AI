@@ -69,9 +69,16 @@ const MatchCard = ({ match }) => {
         <div className="match-identity flex-1">
           <div className="flex-between">
             <h4 className="match-name">{match.name}</h4>
-            <span className={`match-score-pill ${scoreColor}`}>
-              {match.matchDetails.score}% match
-            </span>
+            <div className="flex gap-2 items-center">
+              {match.currentLocation === 'Innovation Hub' && (
+                <span className="badge badge-success animate-pulse" style={{ fontSize: '10px' }}>
+                  Nearby • {match.currentLocation}
+                </span>
+              )}
+              <span className={`match-score-pill ${scoreColor}`}>
+                {match.matchDetails.score}% match
+              </span>
+            </div>
           </div>
           <p className="match-role text-sm text-secondary">
             {match.role}

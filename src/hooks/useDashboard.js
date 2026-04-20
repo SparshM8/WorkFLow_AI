@@ -57,5 +57,6 @@ export const useDashboard = () => {
     setIsScannerOpen,
     triggerFullRoomReroute,
     userAgenda,
+    userLocation: 'Innovation Hub',
   };
 };

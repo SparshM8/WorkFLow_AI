@@ -142,6 +142,7 @@ export const attendees = [
     interests: ["Generative AI", "Open Source", "Ethics"],
     goals: ["Find Co-founder", "Hire talent"],
     bio: "Passionate about building safe and scalable AI models. Transitioning from generic cloud architecture to robust generative multi-agent systems.",
+    currentLocation: "Innovation Hub",
   },
   {
     id: "a2",
@@ -157,6 +158,7 @@ export const attendees = [
     interests: ["UX for AI", "Startups", "Networking"],
     goals: ["Find Co-founder", "Learn new tech"],
     bio: "Looking to bridge the gap between complex AI and elegant user experiences. Firm believer that the interface is as important as the model.",
+    currentLocation: "Main Stage",
   },
   {
     id: "a3",
