@@ -10,7 +10,7 @@ import { trackReroute } from '../services/analytics';
  * @returns {Object} { isRerouting, rerouteInfo, triggerFullRoomReroute, clearReroute }
  */
 export const useRerouteAgent = () => {
-  const { currentUser, recommendedAgenda, setRerouteOverrides } = useContext(AppContext);
+  const { currentUser, recommendedAgenda } = useContext(AppContext);
   const [isRerouting, setIsRerouting] = useState(false);
   const [rerouteInfo, setRerouteInfo] = useState(null);
 

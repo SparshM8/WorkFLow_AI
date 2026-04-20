@@ -10,6 +10,7 @@ import './SessionCard.css';
 
 const SessionCard = ({ session, isAlternate }) => {
   const { userAgenda, rsvpToSession, setActiveDrawerSession } = useContext(AppContext);
+  const { userLocation = 'Innovation Hub' } = useDashboard();
 
   if (!session) {
     return (
@@ -30,7 +31,6 @@ const SessionCard = ({ session, isAlternate }) => {
     );
   }
 
-  const { userLocation = 'Innovation Hub' } = useDashboard();
   const isSaved = userAgenda.some(s => s.id === session.id);
   const countdown = getSessionCountdown(session.time);
 

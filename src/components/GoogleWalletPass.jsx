@@ -1,6 +1,6 @@
 import React from 'react';
 import { Wallet, Check, Download, ShieldCheck, QrCode, CreditCard } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import './GoogleWalletPass.css';
 
 const GoogleWalletPass = ({ user }) => {
@@ -34,7 +34,7 @@ const GoogleWalletPass = ({ user }) => {
       </div>
 
       <div className="wallet-pass-preview mt-4">
-        <motion.div 
+        <Motion.div 
           className="pass-card bg-gradient-to-br from-[#1a1a2e] to-[#16213e] border border-white/10 rounded-xl p-4 shadow-2xl"
           whileHover={{ y: -5, rotateX: 5 }}
           transition={{ type: "spring", stiffness: 300 }}
@@ -63,7 +63,7 @@ const GoogleWalletPass = ({ user }) => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </Motion.div>
       </div>
 
       <div className="wallet-action-container mt-6">

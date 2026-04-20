@@ -31,6 +31,7 @@ const Dashboard = () => {
     setIsScannerOpen,
     triggerFullRoomReroute,
     userAgenda,
+    rerouteInfo,
   } = useDashboard();
 
   if (!currentUser) {
