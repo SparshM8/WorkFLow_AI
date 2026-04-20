@@ -1,0 +1,145 @@
+.reasoning-chain-container {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.rc-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.rc-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.rc-step {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  opacity: 0.3;
+  transition: opacity 0.4s ease;
+}
+
+.rc-step:last-child {
+  padding-bottom: 0;
+}
+
+.rc-step.active, .rc-step.done {
+  opacity: 1;
+}
+
+.rc-line {
+  position: absolute;
+  top: 12px;
+  left: 6px;
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 0;
+}
+
+.rc-step:last-child .rc-line {
+  display: none;
+}
+
+.rc-indicator {
+  position: relative;
+  width: 13px;
+  height: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  background: var(--bg-card);
+  border-radius: 50%;
+  margin-top: 2px;
+}
+
+.rc-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--text-tertiary);
+  border-radius: 50%;
+}
+
+.active .rc-indicator {
+  color: var(--accent-secondary);
+}
+
+.done .rc-indicator {
+  color: var(--success);
+}
+
+.rc-body {
+  flex: 1;
+}
+
+.rc-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rc-icon {
+  color: var(--text-tertiary);
+  opacity: 0.7;
+}
+
+.active .rc-label {
+  color: var(--text-primary);
+}
+
+.active .rc-icon {
+  color: var(--accent-secondary);
+  opacity: 1;
+}
+
+.rc-desc {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  margin-top: 0.25rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  animation: rcType 1.5s steps(40, end);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@keyframes rcType {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.rc-completion {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.rc-cert-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}

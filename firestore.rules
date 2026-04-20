@@ -1,0 +1,85 @@
+rules_version = '2';
+
+// MeetFlow AI — Firestore Security Rules (Production)
+//
+// Philosophy:
+// - Default DENY everything.
+// - Grant minimum required access explicitly.
+// - Users can only read/write their own data.
+// - No cross-user data access unless explicitly designed for it.
+//
+// Rules last updated: 2026-04
+//
+// HOW TO DEPLOY:
+//   firebase deploy --only firestore:rules
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Utility Functions ──────────────────────────────────────
+
+    /** Returns true if the request is authenticated */
+    function isAuth() {
+      return request.auth != null;
+    }
+
+    /** Returns true if the authenticated user owns the document */
+    function isOwner(userId) {
+      return isAuth() && request.auth.uid == userId;
+    }
+
+    /** Returns true if the incoming data has no extra fields beyond allowed */
+    function hasAllowedFields(allowed) {
+      return request.resource.data.keys().hasOnly(allowed);
+    }
+
+    // ── Default: DENY ALL ─────────────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // ── User Documents ────────────────────────────────────────
+    // Users can only read and update their own profile document.
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+
+      // Allow merge-writes (used by syncUserCloudProfile)
+      allow create, update: if isOwner(userId)
+        && hasAllowedFields([
+          'agendaCount', 'networkCount', 'lastAction',
+          'lastSynced', 'platform'
+        ]);
+
+      // ── Notes Subcollection ───────────────────────────────
+      // Notes live under /users/{userId}/notes/{sessionId}
+      // Only the owning user can read or write their notes.
+      match /notes/{sessionId} {
+        allow read: if isOwner(userId);
+
+        allow create, update: if isOwner(userId)
+          && hasAllowedFields(['userId', 'sessionId', 'text', 'updatedAt'])
+          // Prevent writing malicious payloads: limit note size
+          && request.resource.data.text is string
+          && request.resource.data.text.size() <= 2000;
+
+        allow delete: if isOwner(userId);
+      }
+    }
+
+    // ── Sessions (Read-Only Public) ───────────────────────────
+    // Sessions are read-only for any authenticated user.
+    // Only admins (via Cloud Functions / Admin SDK) can write sessions.
+    match /sessions/{sessionId} {
+      allow read: if isAuth();
+      allow write: if false; // Admin-only via Firebase Admin SDK
+    }
+
+    // ── Analytics Events (Write-Only) ────────────────────────
+    // Users can log events but cannot read other users' events.
+    match /events/{eventId} {
+      allow create: if isAuth()
+        && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if false;
+    }
+  }
+}

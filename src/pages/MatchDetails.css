@@ -1,0 +1,137 @@
+.match-details-page {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.back-btn {
+  margin-bottom: 2rem;
+}
+
+.profile-hero {
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-hero::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.profile-avatar {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  display: flex;
+  align-items: center; justify-content: center;
+  font-size: 2rem; font-weight: 700; color: white;
+  font-family: var(--font-heading);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+}
+
+.profile-title h1 {
+  font-size: 2.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.profile-title .role {
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.match-score-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--warning);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.bio {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 80%;
+}
+
+.ai-insights {
+  margin-top: 2rem;
+}
+
+.insight-card {
+  padding: 1.5rem;
+  border-top: 2px solid transparent;
+  transition: all 0.3s;
+}
+
+.insight-card:hover {
+  border-top-color: var(--accent-primary);
+}
+
+.insight-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.insight-text {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.icebreaker-box {
+  background: var(--bg-primary);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--glass-border);
+}
+
+.icebreaker-box .insight-text {
+  font-style: italic;
+  color: var(--text-primary);
+}
+
+.loading-state {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-secondary);
+  padding: 1rem 0;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+.attr-section h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}

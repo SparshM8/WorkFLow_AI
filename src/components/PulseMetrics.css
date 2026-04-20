@@ -1,0 +1,60 @@
+.pulse-container {
+  padding: 1.25rem;
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.pulse-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.pulse-intensity {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.pulse-vibe-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.pulse-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1s ease-in-out, background 0.3s ease;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+}
+
+.pulse-summary {
+  color: var(--text-primary);
+  line-height: 1.4;
+  font-family: var(--font-display);
+}
+
+.pulse-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pulse-skeleton {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-lg);
+}
+
+.skeleton-bar {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}

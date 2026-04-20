@@ -1,0 +1,78 @@
+.wallet-badge {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 0.65rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.wallet-pass-preview {
+  display: flex;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.pass-card {
+  width: 220px;
+  background: #1a1a1a;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pass-top {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  padding: 1.25rem;
+  color: white;
+}
+
+.pass-bottom {
+  padding: 1.25rem;
+  background: #ffffff;
+  color: #000000;
+}
+
+.qr-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  position: relative;
+}
+
+.qr-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent 45%, rgba(99, 102, 241, 0.1) 50%, transparent 55%);
+  animation: qr-shimmer 3s infinite;
+}
+
+@keyframes qr-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.btn-wallet {
+  background: #000000;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-wallet:hover {
+  background: #111;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-success {
+  background: #10b981;
+  color: white;
+  border: none;
+}

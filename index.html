@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Security: Production-Grade CSP (Institution Hardened) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://apis.google.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://firebasestorage.googleapis.com https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://generativelanguage.googleapis.com https://*.firebaseio.com https://*.googleapis.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://www.google.com; frame-src 'self' https://*.firebaseapp.com https://accounts.google.com https://apis.google.com https://*.google.com;" />
+
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Google Fonts Mastery -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Primary SEO -->
+    <title>MeetFlow AI — Official AI Event Concierge</title>
+    <meta name="description" content="MeetFlow AI is an production-ready AI event concierge: smart matchmaking, personalized icebreakers, and real-time agenda optimization powered by Google Gemini." />
+    <meta name="keywords" content="AI networking, Google Gemini hackathon, event management, real-time agenda, smart matchmaking" />
+
+    <!-- Open Graph (Rich Social Presence) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="MeetFlow AI — AI Event Concierge" />
+    <meta property="og:description" content="Smarter networking powered by Gemini. Real-time adaptation for hackathons and conferences." />
+    <meta property="og:image" content="https://meetflow-ai.vercel.app/og-banner.png" />
+    <meta property="og:site_name" content="MeetFlow AI" />
+
+    <!-- Twitter Card (Viral Optimized) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MeetFlow AI — AI Event Concierge" />
+    <meta name="twitter:description" content="AI-powered matchmaking and real-time agenda planning. Build with Google Gemini." />
+    <meta name="twitter:image" content="https://meetflow-ai.vercel.app/og-banner.png" />
+
+    <!-- Performance & Theme -->
+    <meta name="theme-color" content="#06060c" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <style>
+      :root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', var(--font-sans);
+  
+  --bg-primary: #06060c;        /* Deep Space Black */
+  --bg-secondary: #0d0d1a;      /* Elevation 1 (cards) */
+  --bg-tertiary: #16182e;       /* Highest surfaces (cards etc) */
+      }
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: #6366f1;
+        color: white;
+        padding: 8px;
+        z-index: 100;
+        transition: top 0.3s;
+      }
+      .skip-link:focus { top: 0; }
+    </style>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

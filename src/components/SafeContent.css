@@ -1,0 +1,22 @@
+.safe-content-wrapper {
+  line-height: inherit;
+  color: inherit;
+  font-size: inherit;
+}
+
+.safe-content-wrapper b, 
+.safe-content-wrapper strong {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.safe-content-wrapper i,
+.safe-content-wrapper em {
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+.safe-content-wrapper span.highlight {
+  color: var(--accent-primary);
+  font-weight: 600;
+}

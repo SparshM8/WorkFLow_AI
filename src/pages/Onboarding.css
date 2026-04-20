@@ -1,0 +1,191 @@
+.onboarding-page {
+  min-height: 100vh;
+  padding: 2rem;
+  background: var(--bg-base);
+}
+
+.onboarding-container {
+  width: 100%;
+  max-width: 650px;
+  padding: 3rem 2.5rem;
+}
+
+.onboarding-header {
+  margin-bottom: 2rem;
+}
+
+/* ── Step indicator ── */
+.onboarding-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.ob-step {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.ob-step-dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  border: 2px solid var(--glass-border-strong);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  transition: all 0.3s;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.ob-step-dot.active {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.1);
+}
+
+.ob-step-dot.done {
+  background: rgba(16,185,129,0.15);
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.ob-step-label {
+  font-size: 0.68rem;
+  color: var(--text-tertiary);
+  font-weight: 500;
+  margin: 0 0.5rem;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+
+.ob-step-label.done { color: var(--success); }
+
+.ob-step-line {
+  width: 40px;
+  height: 2px;
+  background: var(--glass-border);
+  transition: background 0.3s;
+  flex-shrink: 0;
+}
+
+.ob-step-line.done {
+  background: linear-gradient(90deg, var(--success), rgba(16,185,129,0.4));
+}
+
+
+.sparkle-wrapper {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.1);
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+}
+
+.onboarding-header h1 {
+  font-size: 2.25rem;
+}
+
+.form-section {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+input, select {
+  width: 100%;
+  background: var(--bg-base);
+  border: 1px solid var(--glass-border-strong);
+  color: var(--text-primary);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.input-error {
+  border-color: var(--danger);
+}
+.input-error:focus {
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+  border-color: var(--danger);
+}
+
+.error-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--danger);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.block { display: block; }
+.ml-1 { margin-left: 0.25rem; }
+
+.pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg-base);
+  color: var(--text-secondary);
+  border: 1px solid var(--glass-border-strong);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.pill-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.pill-btn.selected {
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--accent-secondary);
+  border-color: var(--accent-primary);
+  box-shadow: inset 0 0 10px rgba(99, 102, 241, 0.1);
+}
+
+.border-t {
+  border-top: 1px solid var(--glass-border);
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.05rem;
+}
+
+@media (max-width: 600px) {
+  .onboarding-container { padding: 1.5rem; }
+  .form-section { padding: 1rem; }
+}

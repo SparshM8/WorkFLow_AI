@@ -1,0 +1,21 @@
+{
+  "name": "MeetFlow AI Concierge",
+  "short_name": "MeetFlow",
+  "description": "AI-Powered Event Concierge for Smarter Networking",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#06060c",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "icons.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
