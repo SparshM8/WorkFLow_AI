@@ -72,8 +72,8 @@ const Navigation = () => {
             </div>
           </NavLink>
           
-          <button className="nav-item nav-logout mt-2" onClick={logOut}>
-            <LogOut size={19} />
+          <button className="nav-item nav-logout mt-2" onClick={logOut} aria-label="Log out of application">
+            <LogOut size={19} aria-hidden="true" />
             <span>Logout</span>
           </button>
         </div>

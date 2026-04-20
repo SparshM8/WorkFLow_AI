@@ -30,6 +30,9 @@ if (IS_FIREBASE_CONFIGURED && typeof window !== "undefined") {
  * @param {Object} [params] - Optional metadata parameters
  */
 export const trackEvent = (eventName, params = {}) => {
+  // Push to BigQuery Interaction Stream (Google Cloud broader adoption)
+  bigQueryService.streamInteraction(eventName, params);
+
   if (analytics) {
     logEvent(analytics, eventName, params);
   } else {
@@ -47,7 +50,7 @@ export const trackReroute = (fromSession, toSession) => trackEvent('ai_reroute_a
 export const trackAIFeedback = (id, type, component) => {
   trackEvent('ai_feedback', { id, type, component });
   // Also push to BigQuery for ML audit and model training
-  bigQueryService.trackMLFeedback(id, type === 'positive' ? 1 : 0, type);
+  bigQueryService.logMatchSentiment(id, type);
 };
 
 
