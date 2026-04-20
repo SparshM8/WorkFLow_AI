@@ -54,7 +54,7 @@ const Dashboard = () => {
         <div className="dashboard-hero-content">
           <p className="dashboard-eyebrow">AI Event Concierge</p>
           <h1 className="greeting">
-            Hello, <span className="gradient-text-accent">{currentUser.name.split(' ')[0]}</span>
+            Hello, <span className="gradient-text-accent">{currentUser?.name?.split(' ')[0] || 'there'}</span>
           </h1>
           <p className="subtitle text-secondary mt-1">
             {currentUser.headline || `${currentUser.role}${currentUser.company ? ` · ${currentUser.company}` : ''}`}
@@ -248,7 +248,7 @@ const Dashboard = () => {
                     <button 
                       className="absolute inset-0 opacity-0 cursor-pointer" 
                       onClick={() => {
-                        const mainStage = userAgenda.find(s => s.location === 'Main Stage') || topRecommended?.location === 'Main Stage' ? topRecommended : null;
+                        const mainStage = (userAgenda || []).find(s => s.location === 'Main Stage') || topRecommended?.location === 'Main Stage' ? topRecommended : null;
                         if (mainStage) triggerFullRoomReroute(mainStage.id);
                       }}
                       title="Simulate room hitting capacity"

@@ -37,13 +37,15 @@ export const useDashboard = () => {
 
   // Find the most relevant recommended session that isn't already RSVP'd
   const topRecommended = useMemo(() => {
-    return recommendedAgenda.find(
-      s => s.status !== 'Full' && !userAgenda.some(a => a.id === s.id)
-    ) || recommendedAgenda[0];
+    const agenda = recommendedAgenda || [];
+    const user = userAgenda || [];
+    return agenda.find(
+      s => s.status !== 'Full' && !user.some(a => a.id === s.id)
+    ) || agenda[0];
   }, [recommendedAgenda, userAgenda]);
 
-  const nextUserSession = userAgenda[0];
-  const connectedCount = networkRoster.filter(n => n.status === 'requested' || n.status === 'connected').length;
+  const nextUserSession = userAgenda?.[0];
+  const connectedCount = (networkRoster || []).filter(n => n.status === 'requested' || n.status === 'connected').length;
 
   return {
     currentUser,

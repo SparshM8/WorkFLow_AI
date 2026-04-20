@@ -56,7 +56,7 @@ const AIBriefing = ({ currentUser, topMatches, topRecommended }) => {
       </div>
 
       <p className="briefing-greeting">
-        Here's what your concierge recommends for today, <strong>{currentUser.name.split(' ')[0]}</strong>.
+        Here's what your concierge recommends for today, <strong>{currentUser?.name?.split(' ')[0] || 'Attendee'}</strong>.
       </p>
 
       <div className="briefing-insights">
