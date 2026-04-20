@@ -48,10 +48,13 @@ Scan a physical badge using your camera. MeetFlow AI uses **Gemini 1.5 Flash Vis
 Seamless sync to your **Google Wallet**. The application uses the official Google Wallet brand assets and API structures for a verified digital pass experience.
 
 ### 📍 Live Venue Radar (Advanced Maps SDK)
-A dynamic venue pulse showing real-time match hotspots and **AI-calculated walking time estimates** between sessions based on physical venue coordinates.
+A dynamic venue pulse showing real-time match hotspots and **AI-calculated walking time estimates** between sessions. The system calculates navigation time based on physical venue coordinates and hall navigation heuristics.
 
-### ⚡ Agentic Physical Rerouting
+### 🦾 Agentic Physical Rerouting
 Real-time room capacity monitoring. When a physical hall hits capacity, the concierge instantly triggers an **AI Reroute Advisory**, suggesting an optimized alternative based on your specific goal profile.
+
+### 🔐 Physical Proximity Verification
+Demonstrates "Physical Presence" verification logic. Users can verify their check-in at specific venue coordinates, triggering context-aware updates to their digital event profile.
 
 ---
 

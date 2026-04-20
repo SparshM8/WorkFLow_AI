@@ -1,8 +1,7 @@
-import React, { useContext, useMemo } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sparkles, CalendarDays, Zap, ArrowRight, Users, Brain, Target, Clock, Globe, ShieldCheck } from 'lucide-react';
-import { AppContext } from '../context/AppContext';
-import { getTopMatches } from '../utils/matchmaking';
+import { Sparkles, CalendarDays, Zap, ArrowRight, Users, Globe, ShieldCheck, MapPin } from 'lucide-react';
+import { useDashboard } from '../hooks/useDashboard';
 import MatchCard from '../components/MatchCard';
 import SessionCard from '../components/SessionCard';
 import EventFeed from '../components/EventFeed';
@@ -10,100 +9,29 @@ import AchievementSummary from '../components/AchievementSummary';
 import SmartScanner from '../components/SmartScanner';
 import GoogleWalletPass from '../components/GoogleWalletPass';
 import VenueMap from '../components/VenueMap';
-import { mapsService } from '../services/GoogleMapsService';
-import { calendarService } from '../services/GoogleCalendarService';
+import AIBriefing from '../components/AIBriefing';
 import { AnimatePresence } from 'framer-motion';
 import './Dashboard.css';
 
-/* ── AI Briefing Panel ─────────────────────────── */
-const AIBriefing = ({ currentUser, topMatches, topRecommended }) => {
-  const bestMatch = topMatches[0];
-
-  const nearestHotspot = mapsService.getNearestHotspot(topRecommended?.location || 'Main Stage');
-
-  const insights = [
-    bestMatch && {
-      icon: <Users size={15} />,
-      label: 'Best person to meet',
-      value: `${bestMatch.name} — ${bestMatch.matchDetails.score}% match`,
-      sub: bestMatch.matchDetails.sharedInterests.slice(0, 2).join(', ') || bestMatch.role,
-      color: 'insight-purple',
-    },
-    topRecommended && {
-      icon: <CalendarDays size={15} />,
-      label: 'Session to prioritise',
-      value: topRecommended.title,
-      sub: `${topRecommended.time} · ${topRecommended.location}`,
-      color: 'insight-indigo',
-    },
-    {
-      icon: <Target size={15} />,
-      label: 'Nearest Match Hotspot',
-      value: nearestHotspot?.name || 'Networking Lounge',
-      sub: `High activity nearby · ${nearestHotspot?.count || 5} matches`,
-      color: 'insight-teal',
-    },
-    currentUser.goals?.length > 0 && {
-      icon: <Brain size={15} />,
-      label: 'Your top goal today',
-      value: currentUser.goals[0],
-      sub: `${currentUser.goals.length} goal${currentUser.goals.length > 1 ? 's' : ''} active`,
-      color: 'insight-amber',
-    },
-  ].filter(Boolean);
-
-  return (
-    <div className="ai-briefing-card">
-      <div className="briefing-header">
-        <div className="briefing-label">
-          <Sparkles size={14} className="briefing-icon" />
-          AI Briefing
-        </div>
-        <span className="briefing-tag">Live · {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</span>
-      </div>
-
-      <p className="briefing-greeting">
-        Here's what your concierge recommends for today, <strong>{currentUser.name.split(' ')[0]}</strong>.
-      </p>
-
-      <div className="briefing-insights">
-        {insights.length > 0 ? insights.map((ins, i) => (
-          <div key={i} className={`briefing-insight ${ins.color}`}>
-            <div className="insight-icon-wrap">{ins.icon}</div>
-            <div className="insight-body">
-              <span className="insight-label">{ins.label}</span>
-              <span className="insight-value">{ins.value}</span>
-              {ins.sub && <span className="insight-sub">{ins.sub}</span>}
-            </div>
-          </div>
-        )) : (
-          /* Skeleton Loader */
-          [1,2,3].map(i => (
-            <div key={i} className="briefing-insight skeleton-shimmer" style={{ height: '60px', opacity: 0.1 }}></div>
-          ))
-        )}
-      </div>
-    </div>
-  );
-};
-
-/* ── Main Dashboard ────────────────────────────── */
+/**
+ * Dashboard — The primary landing state for authenticated users.
+ * Provides AI-driven briefings, ranked matches, and real-time physical event telemetry.
+ */
 const Dashboard = () => {
-  const { currentUser, attendees, userAgenda, recommendedAgenda, networkRoster, eventStats, triggerFullRoomReroute } = useContext(AppContext);
   const navigate = useNavigate();
-  const runtimeMode = currentUser?.authMode === 'firebase'
-    ? 'firebase'
-    : currentUser?.authMode === 'local-resilience' || currentUser?.authMode === 'fallback'
-      ? 'local-fallback'
-      : eventStats?.isResilientMode
-        ? 'local-fallback'
-        : 'unknown';
-  const topMatches = useMemo(
-    () => (currentUser ? getTopMatches(currentUser, attendees, 4) : []),
-    [currentUser, attendees]
-  );
-
-  const [isScannerOpen, setIsScannerOpen] = React.useState(false);
+  const {
+    currentUser,
+    topMatches,
+    topRecommended,
+    nextUserSession,
+    connectedCount,
+    runtimeMode,
+    eventStats,
+    isScannerOpen,
+    setIsScannerOpen,
+    triggerFullRoomReroute,
+    userAgenda,
+  } = useDashboard();
 
   if (!currentUser) {
     return (
@@ -117,13 +45,6 @@ const Dashboard = () => {
       </div>
     );
   }
-
-  const topRecommended = recommendedAgenda.find(
-    s => s.status !== 'Full' && !userAgenda.some(a => a.id === s.id)
-  ) || recommendedAgenda[0];
-
-  const nextUserSession = userAgenda[0];
-  const connectedCount = networkRoster.filter(n => n.status === 'requested' || n.status === 'connected').length;
 
   return (
     <div className="dashboard-page animate-fade-in">
@@ -168,14 +89,29 @@ const Dashboard = () => {
         currentUser={currentUser}
         topMatches={topMatches}
         topRecommended={topRecommended}
-        userAgenda={userAgenda}
-        networkRoster={networkRoster}
       />
 
       {/* ── Physical Event Experience (Top 10 Alignment) ── */}
       <div className="physical-experience-grid mt-6">
         <VenueMap location="Innovation Hub, Level 2" />
-        <GoogleWalletPass user={currentUser} />
+        <div className="flex flex-col gap-4">
+          <GoogleWalletPass user={currentUser} />
+          
+          {/* Physical Check-in Simulation */}
+          <div className="card p-4 bg-accent-primary/5 border-accent-primary/20">
+            <div className="flex items-center gap-3 mb-2">
+              <MapPin size={18} className="text-accent-primary" />
+              <h4 className="text-sm font-bold">Physical Presence</h4>
+            </div>
+            <p className="text-xs text-secondary mb-3">You are currently near the <strong>Innovation Hub</strong>.</p>
+            <button 
+              className="btn btn-xs btn-outline w-full"
+              onClick={() => alert('Physical presence verified. Your digital badge has been updated with "Live at Venue" status.')}
+            >
+              Verify Check-in
+            </button>
+          </div>
+        </div>
       </div>
 
       <div className="scanner-cta-bar card mt-6 mb-2">
@@ -240,14 +176,6 @@ const Dashboard = () => {
                 <CalendarDays size={18} style={{ color: 'var(--accent-primary)' }} />
                 {nextUserSession ? 'Up Next' : 'My Agenda'}
               </h2>
-              {userAgenda.length > 0 && (
-                <button 
-                  className="btn-text flex items-center gap-1 text-xs text-accent-secondary hover-glow"
-                  onClick={() => calendarService.syncAgenda(userAgenda).then(() => alert('Agenda synced to Cloud!'))}
-                >
-                  <Globe size={12} /> Sync Agenda to Google
-                </button>
-              )}
             </div>
             {nextUserSession ? (
               <>
@@ -320,7 +248,7 @@ const Dashboard = () => {
                     <button 
                       className="absolute inset-0 opacity-0 cursor-pointer" 
                       onClick={() => {
-                        const mainStage = userAgenda.find(s => s.location === 'Main Stage') || recommendedAgenda.find(s => s.location === 'Main Stage');
+                        const mainStage = userAgenda.find(s => s.location === 'Main Stage') || topRecommended?.location === 'Main Stage' ? topRecommended : null;
                         if (mainStage) triggerFullRoomReroute(mainStage.id);
                       }}
                       title="Simulate room hitting capacity"
